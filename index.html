@@ -167,7 +167,8 @@
     function verify() {
         key = document.getElementById('key').value;
         // 解锁头像
-        imgDecryptToCSS(window.location.origin + '/assets/img/tjl_image_672_672.png.encrypt.bin', key, 'image-hero');
+        // imgDecryptToCSS(window.location.origin + '/assets/img/tjl_image_672_672.png.encrypt.bin', key, 'image-hero');
+        imgDecryptToCSS(window.location.pathname + '/assets/img/tjl_image_672_672.png.encrypt.bin', key, 'image-hero');
         // 解锁head-text
         document.getElementById('head-text').innerHTML = aesStringDecrypt(key, headText);
         // 解锁main-text
@@ -181,7 +182,8 @@
             return;
         }
         let xhr = new XMLHttpRequest();
-        xhr.open("get", window.location.origin + '/assets/tjl-cv.pdf.encrypt.bin', true);
+        // xhr.open("get", window.location.origin + '/assets/tjl-cv.pdf.encrypt.bin', true);
+        xhr.open("get", window.location.pathname + '/assets/tjl-cv.pdf.encrypt.bin', true);
         xhr.responseType = "blob";
         xhr.onload = function () {
             if (this.status == 200) {
