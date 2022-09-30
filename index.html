@@ -166,14 +166,18 @@
 
     function verify() {
         key = document.getElementById('key').value;
-        // 解锁头像
-        // imgDecryptToCSS(window.location.origin + '/assets/img/tjl_image_672_672.png.encrypt.bin', key, 'image-hero');
-        imgDecryptToCSS(window.location.pathname + 'assets/img/tjl_image_672_672.png.encrypt.bin', key, 'image-hero');
-        // 解锁head-text
-        document.getElementById('head-text').innerHTML = aesStringDecrypt(key, headText);
-        // 解锁main-text
-        document.getElementById('main-text').innerHTML = aesStringDecrypt(key, mainText);
-        document.getElementById('verify-div').setAttribute('hidden', 'hidden');
+        try {
+            // 解锁头像
+            // imgDecryptToCSS(window.location.origin + '/assets/img/tjl_image_672_672.png.encrypt.bin', key, 'image-hero');
+            imgDecryptToCSS(window.location.pathname + 'assets/img/tjl_image_672_672.png.encrypt.bin', key, 'image-hero');
+            // 解锁head-text
+            document.getElementById('head-text').innerHTML = aesStringDecrypt(key, headText);
+            // 解锁main-text
+            document.getElementById('main-text').innerHTML = aesStringDecrypt(key, mainText);
+            document.getElementById('verify-div').setAttribute('hidden', 'hidden');
+        } catch (e) {
+            alert('密钥错误！');
+        }
     }
 
     function getPDF() {
