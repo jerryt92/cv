@@ -45,7 +45,6 @@ function aesFileDecrypt(key, data) {
     data = arrayBufferToWordArray(data);
     // CryptoJS.MD5必须转为字符串！
     key = CryptoJS.enc.Hex.parse(""+CryptoJS.MD5(key));
-    console.log("key="+key);
     let decrypt = CryptoJS.AES.decrypt({ ciphertext: data }, key, mode);
     return wordArrayToArrayBuffer(decrypt);
 }
