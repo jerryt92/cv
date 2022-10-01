@@ -1,10 +1,10 @@
 // 依赖crypto-js
 
 const mode = {
-    // iv: CryptoJS.enc.Utf8.parse("ABCDEF1234123412"), // 十六位十六进制数作为密钥偏移量
     // CryptoJS.MD5必须转为字符串！
-    iv: CryptoJS.enc.Utf8.parse((""+CryptoJS.MD5("tjlaes2022")).slice(8, 24)), // 密钥偏移量
-    mode: CryptoJS.mode.CBC,
+    // 密钥偏移量，ECB模式不需要
+    // iv: CryptoJS.enc.Utf8.parse((""+CryptoJS.MD5("tjlaes2022")).slice(8, 24)),
+    mode: CryptoJS.mode.ECB,
     padding: CryptoJS.pad.Pkcs7,
 }
 
