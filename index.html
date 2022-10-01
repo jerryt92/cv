@@ -159,10 +159,10 @@
     var fileReader = new FileReader();
     var key = "";
     window.onload = function () {
-        // 把qkey解密为key
-        key += aesStringDecrypt("20221001",getPramValue('qkey'));
         if (key.length!=0) {
             try {
+                // 把qkey解密为key
+                key += aesStringDecrypt("20221001",getPramValue('qkey'));
                 // 解锁头像
                 // imgDecryptToCSS(window.location.origin + '/assets/img/tjl_image_672_672.webp.encrypt.bin', key, 'image-hero');
                 // GitHub
