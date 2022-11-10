@@ -1,2 +1,2 @@
 # cv
-个人简历：[https://tianjingli.github.io/cv/](https://tianjingli.github.io/cv)
+个人简历：[https://jerryt92.github.io/cv/](https://jerryt92.github.io/cv)
