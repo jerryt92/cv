@@ -165,9 +165,13 @@
 <script src="js/aes.js"></script>
 <script>
     var fileReader = new FileReader();
-    var key = "";
+    var key = '';
     var qkey = getPramValue('qkey');
     window.onload = function () {
+        if (sessionStorage.getItem('pwd')) {
+            document.getElementById('key').value = sessionStorage.getItem('pwd');
+            verify();
+        }
         if (qkey != null) {
             try {
                 // 把qkey解密为key
@@ -199,8 +203,11 @@
             // 解锁main-text
             document.getElementById('main-text').innerHTML = aesDecryptBase64(''+CryptoJS.MD5(key), mainText);
             document.getElementById('verify-div').setAttribute('hidden', 'hidden');
+            sessionStorage.setItem('pwd',key);
         } catch (e) {
+            alert(e)
             alert('密码错误！');
+            sessionStorage.clear();
         }
     }
 
