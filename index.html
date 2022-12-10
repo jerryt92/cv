@@ -264,7 +264,8 @@
     }
 
     function getPDF() {
-        var file_url = window.location.pathname + 'assets/cv.pdf.wa.aes256.bin'
+        // var file_url = window.location.pathname + 'assets/cv.pdf.wa.aes256.bin'
+        var file_url = 'http://localhost:63342/cv-enc/assets/cv.pdf.wa.aes256.bin'
         let xhr = new XMLHttpRequest();
         xhr.open("get", file_url, true);
         xhr.responseType = "blob";
@@ -273,7 +274,7 @@
                 var blob = this.response;
                 fileReader.readAsArrayBuffer(blob)
                 fileReader.onload = function (e) {
-                    const decData = aesFileDecrypt(''+CryptoJS.MD5(key), e.target.result);
+                    const decData = aesFileDecrypt(''+CryptoJS.MD5(sessionStorage.getItem('pwd')), e.target.result);
                     const fileBlob = new Blob([decData], {type: "application/octet-stream"});
                     download(fileBlob, 'cv.pdf');
                 };
