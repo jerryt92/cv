@@ -925,6 +925,11 @@ h1 #ac-localnav sup, h2 #ac-localnav sup, h3 #ac-localnav sup {
         backdrop-filter: saturate(180%) blur(20px);
         background-color: rgba(255, 255, 255, 0.72)
     }
+    @media (prefers-color-scheme: dark) {
+        #ac-localnav.ac-ln-sticking .ac-ln-background {
+            background-color: rgb(50, 52, 54, 0.72)
+        }
+    }
 }
 
 .ac-ln-sticking#ac-localnav.ac-localnav-noblur .ac-ln-background {
@@ -2476,6 +2481,12 @@ h1 #ac-localnav sup, h2 #ac-localnav sup, h3 #ac-localnav sup {
     transition: color 0.5s cubic-bezier(0.28, 0.11, 0.32, 1)
 }
 
+@media (prefers-color-scheme: dark) {
+    #ac-localnav .ac-ln-title, #ac-localnav .ac-ln-title a {
+        color: #000;
+    }
+}
+
 .ac-theme-dark #ac-localnav .ac-ln-title, .ac-theme-dark #ac-localnav .ac-ln-title a, #ac-localnav.ac-localnav-dark .ac-ln-title, #ac-localnav.ac-localnav-dark .ac-ln-title a {
     color: #fff
 }
@@ -2510,6 +2521,12 @@ h1 #ac-localnav sup, h2 #ac-localnav sup, h3 #ac-localnav sup {
     top: -1px;
     color: #000;
     opacity: .56
+}
+
+@media (prefers-color-scheme: dark) {
+    #ac-localnav .ac-ln-title, #ac-localnav .ac-ln-title a {
+        color: #ffffff;
+    }
 }
 
 #ac-localnav .ac-ln-title-subhead:lang(ar), #ac-localnav .ac-ln-title-comingsoon:lang(ar) {

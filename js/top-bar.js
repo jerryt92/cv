@@ -973,6 +973,13 @@
     54: [function (t, e, i) {
         "use strict";
 
+        function n(t, e) {
+            s.call(this), this._id = t || a.ID, this._options = Object.assign({}, a.OPTIONS, e), this._allowDOMEventDispatch = !1, this._allowElementStateData = !1, this._options.removeNamespace = "boolean" != typeof this._options.removeNamespace || this._options.removeNamespace, this._el = this._initViewportEl(this._id), this._resizing = !1, this._mediaQueryLists = {
+                resolution: {retina: window.matchMedia(h.RETINA)},
+                orientation: {portrait: window.matchMedia(h.PORTRAIT), landscape: window.matchMedia(h.LANDSCAPE)}
+            }, this._viewport = this._getViewport(this._options.removeNamespace), this._retina = this._getRetina(this._mediaQueryLists.resolution.retina), this._orientation = this._initOrientation(), this._addListeners(), this._updateElementStateData()
+        }
+
         var s = t("@marcom/ac-event-emitter-micro").EventEmitterMicro, r = t("@marcom/ac-raf-emitter/update"),
             a = {ID: "viewport-emitter", OPTIONS: {removeNamespace: !0}},
             o = {DOM_DISPATCH: "data-viewport-emitter-dispatch", STATE: "data-viewport-emitter-state"}, c = "::before",
@@ -986,7 +993,11 @@
                 retina: "change:retina",
                 viewport: "change:viewport"
             };
-        Object.defineProperty(n, "DOM_STATE_ATTRIBUTE", {
+        Object.defineProperty(n, "DOM_DISPATCH_ATTRIBUTE", {
+            get: function () {
+                return o.DOM_DISPATCH
+            }
+        }), Object.defineProperty(n, "DOM_STATE_ATTRIBUTE", {
             get: function () {
                 return o.STATE
             }

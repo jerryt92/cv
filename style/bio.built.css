@@ -1,3 +1,10 @@
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #323436;
+        color: #b5b5b5;
+    }
+}
+
 .page-bio .section-hero {
     position: relative;
     padding-top: 106px
@@ -69,6 +76,12 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#eaeaea), to(#fafafa));
     background: -webkit-linear-gradient(top, #eaeaea 0%, #fafafa 100%);
     background: linear-gradient(to bottom, #eaeaea 0%, #fafafa 100%)
+}
+
+@media (prefers-color-scheme: dark) {
+    .page-bio .section-hero .image-hero-container {
+        background: #2c2c2c;
+    }
 }
 
 @media only screen and (max-width: 735px) {
