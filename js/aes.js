@@ -1,5 +1,7 @@
-// 依赖crypto-js
+// 依赖crypto-js v4.2.0
+// https://github.com/jerryt92/js_encrypto - 2022/10/1
 
+// AES加密模式配置
 const mode = {
     // CryptoJS.MD5必须转为字符串！
     // 密钥偏移量，ECB模式不需要
@@ -7,85 +9,95 @@ const mode = {
     mode: CryptoJS.mode.ECB,
     padding: CryptoJS.pad.Pkcs7,
 }
+// 密钥编码方式
+const cipherEncode = "base64";
+// 数据编码方式
+const dataEncode = "hex";
 
 // AES字符串加密
 
 // 加密方法
-function aesEncryptBase64(key, data) {
+function aesEncrypt(cipher, data) {
     // CryptoJS.MD5必须转为字符串！
-    key = CryptoJS.enc.Utf8.parse(key);
+    if (cipherEncode.toLowerCase() == "base64") {
+        cipher = CryptoJS.enc.Base64.parse(cipher);
+    } else if (cipherEncode.toLowerCase() == "utf8") {
+        cipher = CryptoJS.enc.Utf8.parse(cipher);
+    } else {
+        throw new Error("Unsupport cipher encode: " + cipherEncode);
+    }
     let srcs = CryptoJS.enc.Utf8.parse(data);
-    let encrypted = CryptoJS.AES.encrypt(srcs, key, mode);
-    return CryptoJS.enc.Base64.stringify(encrypted.ciphertext);
+    let encrypted = CryptoJS.AES.encrypt(srcs, cipher, mode);
+    if (dataEncode.toLowerCase() == "base64") {
+        return CryptoJS.enc.Base64.stringify(encrypted.ciphertext);
+    } else if (dataEncode.toLowerCase() == "hex") {
+        return CryptoJS.enc.Hex.stringify(encrypted.ciphertext);
+    } else {
+        throw new Error("Unsupport data encode: " + dataEncode);
+    }
 }
+
 // 解密方法
-function aesDecryptBase64(key, data) {
-    // CryptoJS.MD5必须转为字符串！
-    key = CryptoJS.enc.Utf8.parse(key);
-    let encryptedHexStr = CryptoJS.enc.Base64.parse(data);
-    let srcs = CryptoJS.enc.Base64.stringify(encryptedHexStr);
-    let decrypt = CryptoJS.AES.decrypt(srcs, key, mode);
-    return decrypt.toString(CryptoJS.enc.Utf8);
+function aesDecrypt(cipher, data) {
+    if (cipherEncode.toLowerCase() == "base64") {
+        cipher = CryptoJS.enc.Base64.parse(cipher);
+    } else if (cipherEncode.toLowerCase() == "utf8") {
+        cipher = CryptoJS.enc.Utf8.parse(cipher);
+    }
+    if (dataEncode.toLowerCase() == "base64") {
+        let decrypt = CryptoJS.AES.decrypt(data, cipher, mode);
+        return decrypt.toString(CryptoJS.enc.Utf8);
+    } else if (dataEncode.toLowerCase() == "hex") {
+        let cipherText = CryptoJS.enc.Hex.parse(data)
+        let decrypted = CryptoJS.AES.decrypt({
+            ciphertext: cipherText
+        }, cipher, mode);
+        return decrypted.toString(CryptoJS.enc.Utf8);
+    } else {
+        throw new Error("Unsupport data encode: " + dataEncode);
+    }
 }
-// 加密方法
-function aesEncryptHex(key, data) {
-    key = CryptoJS.enc.Utf8.parse(key);
-    let encrypted = CryptoJS.AES.encrypt(data, key, mode);
-    let cipherText = encrypted.toString();
-    cipherText = CryptoJS.enc.Hex.stringify(CryptoJS.enc.Base64.parse(cipherText));
-    return cipherText;
-}
-// 解密方法
-function aesDecryptHex(key, data) {
-    let cipherText;
-    cipherText = CryptoJS.enc.Hex.parse(data)
-    key = CryptoJS.enc.Utf8.parse(key);
-    let decrypted = CryptoJS.AES.decrypt({
-        ciphertext: cipherText
-    }, key, mode);
-    return decrypted.toString(CryptoJS.enc.Utf8);
-}
+
 
 // AES文件加密
 
 // 加密
-function aesFileEncrypt(key, data) {
-    // data为ArrayBuffer类型的数据
+function aesFileEncrypt(cipher, data) {
     data = arrayBufferToWordArray(data);
     // CryptoJS.MD5必须转为字符串！
-    key = CryptoJS.enc.Hex.parse(key);
-    let encrypted = CryptoJS.AES.encrypt(data, key, mode);
+    cipher = CryptoJS.enc.Utf8.parse(cipher);
+    let encrypted = CryptoJS.AES.encrypt(data, cipher, mode);
     return wordArrayToArrayBuffer(encrypted.ciphertext);
 }
+
 // 解密
-function aesFileDecrypt(key, data) {
-    // data为ArrayBuffer类型的数据
+function aesFileDecrypt(cipher, data) {
     data = arrayBufferToWordArray(data);
     // CryptoJS.MD5必须转为字符串！
-    key = CryptoJS.enc.Hex.parse(key);
-    let decrypt = CryptoJS.AES.decrypt({ ciphertext: data }, key, mode);
+    cipher = CryptoJS.enc.Utf8.parse(cipher);
+    let decrypt = CryptoJS.AES.decrypt({ciphertext: data}, cipher, mode);
     return wordArrayToArrayBuffer(decrypt);
 }
 
 function arrayBufferToWordArray(arrayBuffer) {
-    const u8 = new Uint8Array(arrayBuffer, 0, arrayBuffer.byteLength);
-    const len = u8.length;
+    const bytes = new Int8Array(arrayBuffer, 0, arrayBuffer.byteLength);
+    const len = bytes.length;
     const words = [];
     for (let i = 0; i < len; i += 1) {
-        words[i >>> 2] |= (u8[i] & 0xff) << (24 - (i % 4) * 8);
+        words[i >>> 2] |= (bytes[i] & 0xff) << (24 - (i % 4) * 8);
     }
     return CryptoJS.lib.WordArray.create(words, len);
 }
 
 function wordArrayToArrayBuffer(wordArray) {
-    const { words } = wordArray;
-    const { sigBytes } = wordArray;
-    const u8 = new Uint8Array(sigBytes);
+    const {words} = wordArray;
+    const {sigBytes} = wordArray;
+    const bytes = new Int8Array(sigBytes);
     for (let i = 0; i < sigBytes; i += 1) {
         const byte = (words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff;
-        u8[i] = byte;
+        bytes[i] = byte;
     }
-    return u8;
+    return bytes;
 }
 
 function arrayBufferToBinaryString(arrayBuffer) {

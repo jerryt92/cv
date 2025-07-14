@@ -65,8 +65,7 @@
             }
         }
 
-        .page-bio .section-hero .image-hero {
-            /*background-image: url(assets/img/man_image_672_672.webp);*/
+        .page-bio .section-hero .avatar {
             height: 316px;
             background-size: 316px;
             background-repeat: no-repeat;
@@ -75,36 +74,31 @@
         @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx),
         (-webkit-min-device-pixel-ratio: 1.5),
         (min-resolution: 144dpi) {
-            .page-bio .section-hero .image-hero {
-                /*background-image: url(assets/img/man_image_672_672.webp);*/
+            .page-bio .section-hero .avatar {
             }
         }
 
         @media only screen and (max-width: 1068px) {
-            .page-bio .section-hero .image-hero {
-                /*background-image: url(assets/img/man_image_672_672.webp);*/
+            .page-bio .section-hero .avatar {
                 height: 293px;
                 background-size: 293px;
             }
         }
 
         @media only screen and (max-width: 1068px) and (-webkit-min-device-pixel-ratio: 1.5), only screen and (max-width: 1068px) and (min-resolution: 144dpi), only screen and (max-width: 1068px) and (-webkit-min-device-pixel-ratio: 144), only screen and (max-width: 1068px) and (min-resolution: 144dppx) {
-            .page-bio .section-hero .image-hero {
-                /*background-image: url(assets/img/man_image_672_672.webp);*/
+            .page-bio .section-hero .avatar {
             }
         }
 
         @media only screen and (max-width: 735px) {
-            .page-bio .section-hero .image-hero {
-                /*background-image: url(assets/img/man_image_672_672.webp);*/
+            .page-bio .section-hero .avatar {
                 height: 200px;
                 background-size: 200px;
             }
         }
 
         @media only screen and (max-width: 735px) and (-webkit-min-device-pixel-ratio: 1.5), only screen and (max-width: 735px) and (min-resolution: 144dpi), only screen and (max-width: 735px) and (-webkit-min-device-pixel-ratio: 144), only screen and (max-width: 735px) and (min-resolution: 144dppx) {
-            .page-bio .section-hero .image-hero {
-                /*background-image: url(assets/img/man_image_672_672.webp);*/
+            .page-bio .section-hero .avatar {
             }
         }
     </style>
@@ -112,8 +106,8 @@
     <header class="section section-hero">
 
         <div class="section-content">
-            <div class="image-hero-container">
-                <figure class="image-hero" id="image-hero"></figure>
+            <div class="avatar-container">
+                <figure class="avatar" id="avatar"></figure>
             </div>
 
             <!-- head-text-->
@@ -174,6 +168,19 @@
     var key = '';
     var qkey = getPramValue('qkey');
 
+    async function loadImage() {
+        try {
+            const response = await fetch('./assets/img/avatar_672_672.webp.aes256.bin');
+            if (!response.ok) {
+                throw new Error('无法加载图片文件');
+            }
+            return await response.blob(); // 返回Blob对象
+        } catch (error) {
+            console.error(error);
+            throw error; // 重新抛出错误以便调用者可以捕获
+        }
+    }
+
     // 从文件加载 headText 内容
     async function loadHeadText() {
         try {
@@ -212,17 +219,15 @@
         if (qkey != null) {
             try {
                 // 把qkey解密为key
-                key = aesDecryptBase64('' + CryptoJS.MD5("20221001"), qkey);
+                key = aesDecrypt('' + CryptoJS.MD5("20221001"), qkey);
                 // 解锁头像
-                // imgDecryptToCSS(window.location.origin + '/assets/img/man_image_672_672.webp.wa.aes256.bin', key, 'image-hero');
-                // GitHub
-                imgDecryptToCSS(window.location.pathname + 'assets/img/man_image_672_672.webp.wa.aes256.bin', key, 'image-hero');
+                avatarDecryptToCSS(key, 'avatar');
                 // 解锁head-text
                 const headText = await loadHeadText();
-                document.getElementById('head-text').innerHTML = aesDecryptBase64('' + CryptoJS.MD5(key), headText);
+                document.getElementById('head-text').innerHTML = aesDecrypt('' + CryptoJS.MD5(key), headText);
                 // 解锁main-text
                 const mainText = await loadMainText();
-                document.getElementById('main-text').innerHTML = aesDecryptBase64('' + CryptoJS.MD5(key), mainText);
+                document.getElementById('main-text').innerHTML = aesDecrypt('' + CryptoJS.MD5(key), mainText);
                 document.getElementById('verify-div').setAttribute('hidden', 'hidden');
             } catch (e) {
                 alert('qkey参数错误！');
@@ -234,15 +239,13 @@
         key = document.getElementById('key').value;
         try {
             // 解锁头像
-            // imgDecryptToCSS(window.location.origin + '/assets/img/man_image_672_672.webp.wa.aes256.bin', key, 'image-hero');
-            // GitHub
-            imgDecryptToCSS(window.location.pathname + 'assets/img/man_image_672_672.webp.wa.aes256.bin', key, 'image-hero');
+            avatarDecryptToCSS(key, 'avatar');
             // 解锁head-text
             const headText = await loadHeadText();
-            document.getElementById('head-text').innerHTML = aesDecryptBase64('' + CryptoJS.MD5(key), headText);
+            document.getElementById('head-text').innerHTML = aesDecrypt('' + CryptoJS.MD5(key), headText);
             // 解锁main-text
             const mainText = await loadMainText();
-            document.getElementById('main-text').innerHTML = aesDecryptBase64('' + CryptoJS.MD5(key), mainText);
+            document.getElementById('main-text').innerHTML = aesDecrypt('' + CryptoJS.MD5(key), mainText);
             document.getElementById('verify-div').setAttribute('hidden', 'hidden');
             sessionStorage.setItem('pwd', key);
         } catch (e) {
@@ -252,44 +255,31 @@
         }
     }
 
-    // 加密图片解密
-    function imgDecryptToSrc(img_url, key, img_id) {
-        console.log("img_url = " + img_url);
-        let xhr = new XMLHttpRequest();
-        xhr.open("get", img_url, true);
-        xhr.responseType = "blob";
-        xhr.onload = function () {
-            if (this.status == 200) {
-                var blob = this.response;
-                fileReader.readAsArrayBuffer(blob)
-                fileReader.onload = function (e) {
-                    const decData = aesFileDecrypt('' + CryptoJS.MD5(key), e.target.result);
-                    const fileBlob = new Blob([decData], {type: "application/octet-stream"});
-                    document.getElementById(img_id).setAttribute('src', URL.createObjectURL(fileBlob));
-                };
-            }
-        };
-        xhr.send();
-    }
+    async function avatarDecryptToCSS(key, img_id) {
+        try {
+            // 加载加密的图片文件
+            const blob = await loadImage();
 
-    function imgDecryptToCSS(img_url, key, img_id) {
-        console.log("img_url = " + img_url);
-        let xhr = new XMLHttpRequest();
-        xhr.open("get", img_url, true);
-        xhr.responseType = "blob";
-        xhr.onload = function () {
-            if (this.status == 200) {
-                var blob = this.response;
-                fileReader.readAsArrayBuffer(blob)
-                fileReader.onload = function (e) {
-                    const decData = aesFileDecrypt('' + CryptoJS.MD5(key), e.target.result);
-                    const fileBlob = new Blob([decData], {type: "application/octet-stream"});
-                    var csstext = 'background-image: url(' + URL.createObjectURL(fileBlob) + ');'
-                    document.getElementById(img_id).style.cssText += csstext;
-                };
-            }
-        };
-        xhr.send();
+            // 读取文件为ArrayBuffer
+            const arrayBuffer = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+                reader.readAsArrayBuffer(blob);
+            });
+
+            // 解密数据
+            const decData = aesFileDecrypt('' + CryptoJS.MD5(key), arrayBuffer);
+
+            // 创建Blob对象
+            const fileBlob = new Blob([decData], {type: "image/webp"}); // 注意根据实际情况调整MIME类型
+
+            // 构建URL并设置样式
+            var csstext = 'background-image: url(' + URL.createObjectURL(fileBlob) + ');';
+            document.getElementById(img_id).style.cssText += csstext;
+        } catch (error) {
+            console.error('图片解密失败:', error);
+        }
     }
 
     function getPramValue(pramName) {
