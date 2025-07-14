@@ -18,9 +18,7 @@
 </div>
 <div id="ac-gn-curtain" class="ac-gn-curtain"></div>
 <div id="ac-gn-placeholder" class="ac-nav-placeholder"></div>
-<div id="ac-gn-viewport-emitter" data-viewport-emitter-dispatch=""
-     data-viewport-emitter-state="{&quot;viewport&quot;:&quot;large&quot;,&quot;orientation&quot;:&quot;landscape&quot;,&quot;retina&quot;:true}">
-</div>
+<div id="ac-gn-viewport-emitter" data-viewport-emitter-dispatch="" data-viewport-emitter-state="{&quot;viewport&quot;:&quot;large&quot;,&quot;orientation&quot;:&quot;landscape&quot;,&quot;retina&quot;:true}"></div>
 <input type="checkbox" id="ac-ln-menustate" class="ac-ln-menustate">
 <div id="ac-ln-sticky-placeholder" class="css-sticky"></div>
 <nav id="ac-localnav" class="js no-touch css-sticky" lang="zh-CN" dir="ltr" data-sticky=""
@@ -167,9 +165,9 @@
     var key = '';
     var qkey = getPramValue('qkey');
 
-    async function loadImage() {
+    async function loadImage(path) {
         try {
-            const response = await fetch('./assets/img/avatar_672_672.webp.aes256.bin');
+            const response = await fetch(path);
             if (!response.ok) {
                 throw new Error('无法加载图片文件');
             }
@@ -257,8 +255,7 @@
     async function avatarDecryptToCSS(key, img_id) {
         try {
             // 加载加密的图片文件
-            const blob = await loadImage();
-
+            const blob = await loadImage('./assets/img/avatar_672_672.webp.aes256.bin');
             // 读取文件为ArrayBuffer
             const arrayBuffer = await new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -266,13 +263,10 @@
                 reader.onerror = error => reject(error);
                 reader.readAsArrayBuffer(blob);
             });
-
             // 解密数据
             const decData = aesFileDecrypt('' + CryptoJS.MD5(key), arrayBuffer);
-
             // 创建Blob对象
             const fileBlob = new Blob([decData], {type: "image/webp"}); // 注意根据实际情况调整MIME类型
-
             // 构建URL并设置样式
             var csstext = 'background-image: url(' + URL.createObjectURL(fileBlob) + ');';
             document.getElementById(img_id).style.cssText += csstext;
