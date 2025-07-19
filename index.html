@@ -16,7 +16,8 @@
 </div>
 <div id="ac-gn-curtain" class="ac-gn-curtain"></div>
 <div id="ac-gn-placeholder" class="ac-nav-placeholder"></div>
-<div id="ac-gn-viewport-emitter" data-viewport-emitter-dispatch="" data-viewport-emitter-state="{&quot;viewport&quot;:&quot;large&quot;,&quot;orientation&quot;:&quot;landscape&quot;,&quot;retina&quot;:true}"></div>
+<div id="ac-gn-viewport-emitter" data-viewport-emitter-dispatch=""
+     data-viewport-emitter-state="{&quot;viewport&quot;:&quot;large&quot;,&quot;orientation&quot;:&quot;landscape&quot;,&quot;retina&quot;:true}"></div>
 <input type="checkbox" id="ac-ln-menustate" class="ac-ln-menustate">
 <div id="ac-ln-sticky-placeholder" class="css-sticky"></div>
 <nav id="ac-localnav" class="js no-touch css-sticky" lang="zh-CN" dir="ltr" data-sticky=""
@@ -213,6 +214,21 @@
             }
         }
         return null;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const passwordInput = document.getElementById('key');
+        passwordInput.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                verify();
+            }
+        });
+    });
+
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') { // 使用 `event.key` 更直观
+            verify(); // 调用验证函数
+        }
     }
 
     //
