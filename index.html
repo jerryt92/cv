@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="stylesheet" type="text/css" href="style/top-bar.css">
+    <link rel="stylesheet" href="./assets/fonts" type="text/css" media="all">
+    <link rel="stylesheet" href="style/main.built.css" type="text/css">
+    <link rel="stylesheet" href="style/bio.built.css" type="text/css">
+    <title>个人简历</title>
+</head>
+<body class="page-bio ac-nav-overlap">
+<meta name="ac-gn-store-key" content="SX29D2YPJFKFAFC2P">
+<aside id="ac-gn-segmentbar" class="ac-gn-segmentbar" lang="zh-CN" dir="ltr"></aside>
+<div class="ac-gn-blur">
+</div>
+<div id="ac-gn-curtain" class="ac-gn-curtain"></div>
+<div id="ac-gn-placeholder" class="ac-nav-placeholder"></div>
+<div id="ac-gn-viewport-emitter" data-viewport-emitter-dispatch=""
+     data-viewport-emitter-state="{&quot;viewport&quot;:&quot;large&quot;,&quot;orientation&quot;:&quot;landscape&quot;,&quot;retina&quot;:true}"></div>
+<input type="checkbox" id="ac-ln-menustate" class="ac-ln-menustate">
+<div id="ac-ln-sticky-placeholder" class="css-sticky"></div>
+<nav id="ac-localnav" class="js no-touch css-sticky" lang="zh-CN" dir="ltr" data-sticky=""
+     data-analytics-region="local nav" role="navigation" aria-label="Local">
+    <div class="ac-ln-wrapper">
+        <div class="ac-ln-background"></div>
+        <div class="ac-ln-content">
+            <div class="ac-ln-title">
+                个人简历
+            </div>
+            <div class="ac-ln-menu">
+                <div class="ac-ln-actions">
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<label id="ac-ln-curtain" for="ac-ln-menustate"></label>
+<script type="text/javascript" src="js/top-bar.js"></script>
+<main id="main" class="main" role="main">
+    <header class="section section-hero">
+        <div class="section-content">
+            <div class="avatar-container">
+                <figure class="avatar" id="avatar"></figure>
+            </div>
+            <!-- head-text-->
+            <div id="head-text" class="headlines">
+            </div>
+        </div>
+    </header>
+    <!-- 内容 -->
+    <div id="main-text">
+    </div>
+    <!--    <a href="javascript:getPDF()" id="pdf-btn" style="font-size: 12px; color: #6E6E73">-->
+    <!--        <p style="text-align: center; position: relative ;bottom: 16px;">导出为PDF</p>-->
+    <!--    </a>-->
+</main>
+<!--  验证模块 -->
+<div id="verify-div" style="text-align: center">
+    <br/>
+    <h1>
+        <svg t="1664713123448" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+             p-id="3870" width="50" height="50">
+            <path d="M385.150849 385.662338l-128.895105 0 0-150.377622q0-49.102897 19.436563-91.556444t53.706294-74.677323 80.815185-50.637363 101.786214-18.413586q49.102897 0 94.625375 18.413586t80.815185 50.637363 56.263736 74.677323 20.971029 91.556444l0 150.377622-123.78022 0 0-121.734266q0-64.447552-35.804196-99.74026t-97.182817-35.292707q-55.240759 0-88.999001 35.292707t-33.758242 99.74026l0 121.734266zM826.053946 447.040959q27.62038 0 47.568432 19.948052t19.948052 47.568432l0 317.122877q0 27.62038-9.718282 51.66034t-26.597403 41.942058-39.896104 28.131868-50.637363 10.22977l-516.603397 0q-27.62038 0-50.125874-10.22977t-38.361638-27.108891-24.551449-39.384615-8.695305-48.07992l0-324.283716q0-27.62038 19.436563-47.568432t47.056943-19.948052l61.378621 0 128.895105 0 255.744256 0 123.78022 0 61.378621 0z"
+                  p-id="3871"></path>
+        </svg>
+    </h1>
+    <h1>
+        如需查看内容请输入密码
+    </h1>
+    <br/>
+    <table style="margin: auto">
+        <tr>
+            <td>
+                <input id="key" type="password" placeholder="请输入密码"
+                       style="border: solid 1px;border-radius: 5px;padding: 5px">
+            </td>
+            <td style="padding-left: 10px">
+                <input type="button" onclick="verify()" value="解锁">
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <hr/>
+    <strong style="color: #8c8c8c;font-size: x-small">
+        Power by AES-256 .
+    </strong>
+</div>
+
+
+<script src="js/crypto-js.min.js"></script>
+<script src="js/aes.js"></script>
+<script>
+    var key = '';
+    var qkey = getPramValue('qkey');
+
+    async function loadImage(path) {
+        try {
+            const response = await fetch(path);
+            if (!response.ok) {
+                throw new Error('无法加载图片文件');
+            }
+            return await response.blob(); // 返回Blob对象
+        } catch (error) {
+            console.error(error);
+            throw error; // 重新抛出错误以便调用者可以捕获
+        }
+    }
+
+    // 从文件加载 headText 内容
+    async function loadHeadText() {
+        try {
+            const response = await fetch('./assets/head-text.txt');
+            if (!response.ok) {
+                throw new Error('无法加载 headText 文件');
+            }
+            const text = await response.text();
+            return text;
+        } catch (error) {
+            console.error(error);
+            return '';
+        }
+    }
+
+    // 从文件加载 mainText 内容
+    async function loadMainText() {
+        try {
+            const response = await fetch('./assets/main-text.txt');
+            if (!response.ok) {
+                throw new Error('无法加载 mainText 文件');
+            }
+            const text = await response.text();
+            return text;
+        } catch (error) {
+            console.error(error);
+            return '';
+        }
+    }
+
+    window.onload = async function () {
+        if (sessionStorage.getItem('pwd')) {
+            document.getElementById('key').value = sessionStorage.getItem('pwd');
+            await verify();
+        }
+        if (qkey != null) {
+            try {
+                // 把qkey解密为key
+                key = aesDecrypt('' + CryptoJS.MD5("20221001"), qkey);
+                // 解锁头像
+                avatarDecryptToCSS(key, 'avatar');
+                // 解锁head-text
+                const headText = await loadHeadText();
+                document.getElementById('head-text').innerHTML = aesDecrypt('' + CryptoJS.MD5(key), headText);
+                // 解锁main-text
+                const mainText = await loadMainText();
+                document.getElementById('main-text').innerHTML = aesDecrypt('' + CryptoJS.MD5(key), mainText);
+                document.getElementById('verify-div').setAttribute('hidden', 'hidden');
+            } catch (e) {
+                alert('qkey参数错误！');
+            }
+        }
+    }
+
+    async function verify() {
+        key = document.getElementById('key').value;
+        try {
+            // 解锁头像
+            avatarDecryptToCSS(key, 'avatar');
+            // 解锁head-text
+            const headText = await loadHeadText();
+            document.getElementById('head-text').innerHTML = aesDecrypt('' + CryptoJS.MD5(key), headText);
+            // 解锁main-text
+            const mainText = await loadMainText();
+            document.getElementById('main-text').innerHTML = aesDecrypt('' + CryptoJS.MD5(key), mainText);
+            document.getElementById('verify-div').setAttribute('hidden', 'hidden');
+            sessionStorage.setItem('pwd', key);
+        } catch (e) {
+            alert('密码错误！');
+            sessionStorage.clear();
+            location.reload();
+        }
+    }
+
+    async function avatarDecryptToCSS(key, img_id) {
+        try {
+            // 加载加密的图片文件
+            const blob = await loadImage('./assets/img/avatar_672_672.webp.aes256.bin');
+            // 读取文件为ArrayBuffer
+            const arrayBuffer = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+                reader.readAsArrayBuffer(blob);
+            });
+            // 解密数据
+            const decData = aesFileDecrypt('' + CryptoJS.MD5(key), arrayBuffer);
+            // 创建Blob对象
+            const fileBlob = new Blob([decData], {type: "image/webp"}); // 注意根据实际情况调整MIME类型
+            // 构建URL并设置样式
+            var csstext = 'background-image: url(' + URL.createObjectURL(fileBlob) + ');';
+            document.getElementById(img_id).style.cssText += csstext;
+        } catch (error) {
+            console.error('图片解密失败:', error);
+        }
+    }
+
+    function getPramValue(pramName) {
+        var query = decodeURI(window.location.search.substring(1));
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == pramName) {
+                return pair[1].trim();
+            }
+        }
+        return null;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const passwordInput = document.getElementById('key');
+        passwordInput.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                verify();
+            }
+        });
+    });
+
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') { // 使用 `event.key` 更直观
+            verify(); // 调用验证函数
+        }
+    }
+
+    //
+    // function getPDF() {
+    //     var file_url = window.location.pathname + 'assets/cv.pdf.wa.aes256.bin'
+    //     // var file_url = 'http://localhost:63342/cv-enc/assets/cv.pdf.wa.aes256.bin'
+    //     let xhr = new XMLHttpRequest();
+    //     xhr.open("get", file_url, true);
+    //     xhr.responseType = "blob";
+    //     xhr.onload = function () {
+    //         if (this.status == 200) {
+    //             var blob = this.response;
+    //             fileReader.readAsArrayBuffer(blob)
+    //             fileReader.onload = function (e) {
+    //                 const decData = aesFileDecrypt(''+CryptoJS.MD5(key), e.target.result);
+    //                 const fileBlob = new Blob([decData], {type: "application/octet-stream"});
+    //                 download(fileBlob, 'cv.pdf');
+    //             };
+    //         }
+    //     };
+    // }
+    //
+    // function download(fileBlob, fileName) {
+    //     const a = document.createElement("a");
+    //     const url = window.URL.createObjectURL(fileBlob);
+    //     a.href = url;
+    //     a.download = fileName;
+    //     a.click();
+    //     window.URL.revokeObjectURL(url);
+    // }
+</script>
+</body>
+<style>
+    .page-bio .section-hero {
+        min-height: 336px;
+    }
+
+    @media only screen and (max-width: 1068px) {
+        .page-bio .section-hero {
+            min-height: 313px;
+        }
+    }
+
+    @media only screen and (max-width: 735px) {
+        .page-bio .section-hero {
+            min-height: auto;
+        }
+    }
+
+    .page-bio .section-hero .avatar {
+        background-image: url(assets/img/avatar_672_672.webp);
+        height: 316px;
+        background-size: 316px;
+        background-size: 316px;
+        background-repeat: no-repeat;
+    }
+
+    @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx),
+    (-webkit-min-device-pixel-ratio: 1.5),
+    (min-resolution: 144dpi) {
+        .page-bio .section-hero .avatar {
+            background-image: url(assets/img/avatar_672_672.webp);
+        }
+    }
+
+    @media only screen and (max-width: 1068px) {
+        .page-bio .section-hero .avatar {
+            background-image: url(assets/img/avatar_672_672.webp);
+            height: 293px;
+            background-size: 293px;
+        }
+    }
+
+    @media only screen and (max-width: 1068px) and (-webkit-min-device-pixel-ratio: 1.5), only screen and (max-width: 1068px) and (min-resolution: 144dpi), only screen and (max-width: 1068px) and (-webkit-min-device-pixel-ratio: 144), only screen and (max-width: 1068px) and (min-resolution: 144dppx) {
+        .page-bio .section-hero .avatar {
+            background-image: url(assets/img/avatar_672_672.webp);
+        }
+    }
+
+    @media only screen and (max-width: 735px) {
+        .page-bio .section-hero .avatar {
+            background-image: url(assets/img/avatar_672_672.webp);
+            height: 200px;
+            background-size: 200px;
+        }
+    }
+
+    @media only screen and (max-width: 735px) and (-webkit-min-device-pixel-ratio: 1.5), only screen and (max-width: 735px) and (min-resolution: 144dpi), only screen and (max-width: 735px) and (-webkit-min-device-pixel-ratio: 144), only screen and (max-width: 735px) and (min-resolution: 144dppx) {
+        .page-bio .section-hero .avatar {
+            background-image: url(assets/img/avatar_672_672.webp);
+        }
+    }
+</style>
+</html>
