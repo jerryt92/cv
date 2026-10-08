@@ -1,0 +1,142 @@
+/* 与 J2Agent 门户知识库问答组件保持一致的静态页皮肤。 */
+.resume-ai-trigger {
+    right: max(28px, env(safe-area-inset-right));
+    bottom: max(28px, env(safe-area-inset-bottom));
+    min-height: 48px;
+    padding: 0 18px;
+    border: 1px solid rgba(111, 126, 255, .28);
+    color: #202334;
+    background: rgba(255, 255, 255, .82);
+    box-shadow: 0 14px 36px rgba(46, 55, 113, .18);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+}
+.resume-ai-trigger span { color: #6378f5; }
+.resume-ai-trigger:hover { color: #465bd9; background: rgba(255, 255, 255, .96); filter: none; }
+
+.resume-ai-backdrop { background: rgba(13, 18, 43, .1); backdrop-filter: blur(2px); }
+.resume-ai-panel {
+    right: 28px;
+    bottom: 28px;
+    width: min(520px, calc(100vw - 56px));
+    height: min(80vh, calc(100dvh - 48px));
+    max-height: calc(100dvh - 48px);
+    border: 1px solid rgba(106, 116, 165, .2);
+    border-radius: 20px;
+    color: #25293d;
+    background: rgba(250, 251, 255, .88);
+    box-shadow: 0 24px 72px rgba(29, 36, 84, .25), 0 2px 8px rgba(30, 36, 76, .08);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    transform-origin: bottom right;
+}
+.resume-ai-header {
+    gap: 8px;
+    padding: 14px 14px 12px;
+    border-bottom: 1px solid rgba(106, 116, 165, .16);
+    color: #25293d;
+    background: rgba(255, 255, 255, .52);
+}
+.resume-ai-title-wrap { display: inline-flex; align-items: center; gap: 8px; min-width: 0; flex: 1; }
+.resume-ai-title-mark { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 50%; background: #6378f5; box-shadow: 0 0 0 3px rgba(99, 120, 245, .16); }
+.resume-ai-panel[data-busy="true"] .resume-ai-title-mark { animation: resume-ai-mark-pulse 1.8s ease-out infinite; }
+@keyframes resume-ai-mark-pulse { 0%, 100% { box-shadow: 0 0 0 3px rgba(99, 120, 245, .16); } 70% { box-shadow: 0 0 0 11px rgba(99, 120, 245, 0); } }
+.resume-ai-header h2 { color: #25293d; font-size: 15px; font-weight: 650; letter-spacing: -.01em; }
+.resume-ai-brand { min-width: 0; margin-left: 4px; padding-left: 10px; overflow: hidden; border-left: 1px solid rgba(106, 116, 165, .16); color: #7c8399; font-size: 11px; white-space: nowrap; text-overflow: ellipsis; }
+.resume-ai-brand a { display: inline-flex; vertical-align: middle; text-decoration: none; }
+.resume-ai-logo { display: block; width: auto; height: 22px; }
+.resume-ai-logo-dark { display: none; }
+.resume-ai-brand a:hover { opacity: .8; }
+.resume-ai-icon-button { width: 32px; height: 32px; border: 0; border-radius: 10px; color: #717991; background: rgba(104, 115, 158, .08); }
+.resume-ai-icon-button svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.resume-ai-icon-button:hover { color: #333952; background: rgba(104, 115, 158, .15); }
+
+.resume-ai-messages-wrap { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.resume-ai-messages { padding: 14px 12px 8px; background: transparent; overscroll-behavior: contain; scroll-behavior: smooth; }
+.resume-ai-scroll-bottom { position: absolute; right: 14px; bottom: 12px; z-index: 2; display: grid; width: 36px; height: 36px; padding: 0; place-items: center; border: 1px solid rgba(106, 116, 165, .2); border-radius: 50%; color: #59617b; background: rgba(255, 255, 255, .86); box-shadow: 0 5px 16px rgba(36, 43, 85, .15); backdrop-filter: blur(12px); cursor: pointer; }
+.resume-ai-scroll-bottom svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.resume-ai-scroll-bottom:hover { color: #4b60db; transform: translateY(1px); }
+.resume-ai-welcome { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 28px 12px 20px; }
+.resume-ai-welcome-orb { position: relative; width: 48px; height: 48px; border-radius: 16px; background: radial-gradient(circle at 82% 74%, #ff82cfb8 0 8%, transparent 42%), radial-gradient(circle at 22% 82%, #67d9f2aa 0 5%, transparent 38%), linear-gradient(135deg, #659eff, #8c8bff 34%, #d889e7 66%, #66d5e7); background-size: 180% 180%, 190% 190%, 220% 220%; box-shadow: 0 10px 24px rgba(99, 120, 245, .28); animation: resume-ai-orb-flow 4.8s ease-in-out infinite; }
+.resume-ai-welcome-orb::before { content: ''; position: absolute; z-index: -1; inset: -12px; border-radius: 22px; background: linear-gradient(135deg, #72aaff99, #d78bf288 52%, #66d8e988); filter: blur(13px); }
+@keyframes resume-ai-orb-flow { 0%, 100% { background-position: 78% 18%, 15% 88%, 0 50%; transform: translateY(0); } 50% { background-position: 22% 76%, 82% 22%, 100% 50%; transform: translateY(-2px); } }
+.resume-ai-welcome-text { max-width: 28em; margin: 6px 0 0; color: #4c536b; font-size: 16px; font-weight: 700; line-height: 1.65; }
+.resume-ai-quick-questions { width: min(100%, 360px); gap: 8px; margin: 4px 0 0; }
+.resume-ai-hot-item { width: 100%; box-sizing: border-box; overflow: hidden; padding: 10px 12px; border: 1px solid rgba(55, 63, 105, .1); border-radius: 12px; color: #555d73; background: rgba(255, 255, 255, .64); font: 13px/1.45 -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; text-align: left; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
+.resume-ai-hot-item:hover { border-color: rgba(99, 120, 245, .35); color: #475bd8; background: rgba(99, 120, 245, .07); }
+
+.resume-ai-row { display: flex; margin: 0 0 12px; animation: resume-ai-message-in .36s cubic-bezier(.2, .75, .2, 1) both; }
+.resume-ai-row.user { justify-content: flex-end; }
+.resume-ai-row.assistant { justify-content: flex-start; flex-wrap: wrap; }
+@keyframes resume-ai-message-in { from { opacity: 0; filter: blur(3px); transform: translateY(10px) scale(.98); } to { opacity: 1; filter: none; transform: none; } }
+.resume-ai-message { max-width: 92%; margin: 0; padding: 11px 14px; border-radius: 16px; font-size: 14px; line-height: 1.55; word-break: break-word; }
+.resume-ai-message.user { color: #30364d; background: rgba(99, 120, 245, .13); border: 1px solid rgba(99, 120, 245, .22); border-bottom-right-radius: 6px; box-shadow: none; }
+.resume-ai-message.assistant { color: #282d43; background: rgba(255, 255, 255, .66); border: 1px solid rgba(55, 63, 105, .11); border-bottom-left-radius: 6px; box-shadow: none; }
+.resume-ai-message.assistant.is-streaming { border-color: rgba(99, 120, 245, .28); box-shadow: 0 0 0 1px rgba(99, 120, 245, .08); }
+.resume-ai-message p { margin: 0 0 10px; }
+.resume-ai-message p:last-child { margin-bottom: 0; }
+.resume-ai-message h1, .resume-ai-message h2, .resume-ai-message h3, .resume-ai-message h4 { margin: 14px 0 8px; color: inherit; line-height: 1.35; }
+.resume-ai-message h1 { font-size: 19px; }
+.resume-ai-message h2 { font-size: 17px; }
+.resume-ai-message h3 { font-size: 15px; }
+.resume-ai-message h4 { font-size: 14px; }
+.resume-ai-message h1:first-child, .resume-ai-message h2:first-child, .resume-ai-message h3:first-child, .resume-ai-message h4:first-child { margin-top: 0; }
+.resume-ai-message ul, .resume-ai-message ol { margin: 8px 0; padding-left: 1.4em; }
+.resume-ai-message li + li { margin-top: 4px; }
+.resume-ai-message blockquote { margin: 10px 0; padding: 5px 0 5px 10px; border-left: 3px solid rgba(99, 120, 245, .5); color: #626a82; }
+.resume-ai-message pre { margin: 10px 0; padding: 10px; overflow-x: auto; border-radius: 10px; background: rgba(37, 41, 61, .07); font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.resume-ai-message pre code { padding: 0; background: transparent; }
+.resume-ai-message code { padding: 1px 4px; border-radius: 4px; background: rgba(99, 120, 245, .1); font: .9em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.resume-ai-message table { display: block; max-width: 100%; margin: 10px 0; overflow-x: auto; border-collapse: collapse; font-size: 12px; }
+.resume-ai-message th, .resume-ai-message td { padding: 6px 8px; border: 1px solid rgba(75, 84, 126, .18); text-align: left; vertical-align: top; white-space: nowrap; }
+.resume-ai-message th { background: rgba(99, 120, 245, .08); font-weight: 650; }
+.resume-ai-message a { color: #4960d7; text-decoration: underline; text-underline-offset: 2px; }
+.resume-ai-copy { margin: 5px 0 0 8px; padding: 2px 4px; border: 0; border-radius: 6px; color: #8a91a8; background: transparent; font-size: 12px; cursor: pointer; }
+.resume-ai-copy:hover { color: #5c6480; background: rgba(104, 115, 158, .08); }
+
+.resume-ai-form { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border-top: 1px solid rgba(106, 116, 165, .16); background: rgba(255, 255, 255, .48); box-shadow: none; }
+.resume-ai-status { min-height: 0; padding: 0 4px; color: #7d849a; background: transparent; font-size: 12px; line-height: 1.4; }
+.resume-ai-status:empty { display: none; }
+.resume-ai-status.is-error { padding: 8px 10px; border-radius: 10px; color: #c34252; background: rgba(255, 59, 48, .08); }
+.resume-ai-input-shell { display: flex; align-items: flex-end; gap: 8px; padding: 8px 8px 8px 12px; border: 1px solid rgba(55, 63, 105, .13); border-radius: 16px; background: rgba(255, 255, 255, .8); box-shadow: 0 2px 8px rgba(43, 48, 87, .06); transition: border-color .18s ease, box-shadow .18s ease; }
+.resume-ai-input-shell:focus-within { border-color: rgba(99, 120, 245, .42); box-shadow: 0 2px 8px rgba(43, 48, 87, .06), 0 0 0 3px rgba(99, 120, 245, .12); }
+.resume-ai-form textarea { flex: 1; min-width: 0; min-height: 36px; max-height: 96px; padding: 6px 0; border: 0; border-radius: 0; color: #25293d; background: transparent; box-shadow: none; font-size: 14px; line-height: 1.45; }
+.resume-ai-form textarea:focus { border: 0; box-shadow: none; }
+.resume-ai-form button { width: 36px; min-height: 36px; padding: 0; border-radius: 12px; background: #6378f5; display: grid; place-items: center; }
+.resume-ai-form button svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.resume-ai-form button:hover:not(:disabled) { background: #5067e8; transform: translateY(-1px); }
+.resume-ai-form #resume-ai-send.is-busy { background: #757f9a; }
+.resume-ai-send-stop-square { width: 10px; height: 10px; border-radius: 2px; background: currentColor; }
+.resume-ai-disclaimer { margin: 0; padding: 0 4px; color: #6378f5; font-size: 10px; line-height: 1.25; text-align: center; }
+
+@media (max-width: 560px) {
+    .resume-ai-trigger { right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); }
+    .resume-ai-panel { right: 0; bottom: 0; width: 100%; height: min(82dvh, 680px); max-height: 82dvh; border-radius: 20px 20px 0 0; }
+    .resume-ai-brand { display: none; }
+    .resume-ai-welcome { padding-top: 20px; }
+}
+
+@media (prefers-color-scheme: dark) {
+    .resume-ai-trigger { color: #e6e8f4; background: rgba(39, 42, 62, .84); border-color: rgba(149, 157, 255, .28); }
+    .resume-ai-panel { color: #e8eaf4; background: rgba(31, 34, 51, .9); border-color: rgba(158, 165, 214, .2); }
+    .resume-ai-header, .resume-ai-form { background: rgba(42, 45, 67, .55); border-color: rgba(158, 165, 214, .16); }
+    .resume-ai-header h2, .resume-ai-message.assistant { color: #ebedf8; }
+    .resume-ai-brand { color: #aab0c7; border-color: rgba(158, 165, 214, .18); }
+    .resume-ai-logo-light { display: none; }
+    .resume-ai-logo-dark { display: block; }
+    .resume-ai-icon-button { color: #b8bfd6; background: rgba(255, 255, 255, .08); }
+    .resume-ai-welcome-text { color: #c7cce0; }
+    .resume-ai-hot-item, .resume-ai-message.assistant { color: #d5d9ea; background: rgba(52, 56, 80, .78); border-color: rgba(158, 165, 214, .16); }
+    .resume-ai-message.user { color: #eef0ff; background: rgba(118, 135, 255, .22); border-color: rgba(132, 146, 255, .32); }
+    .resume-ai-message blockquote { color: #b7bdd4; }
+    .resume-ai-message pre { background: rgba(8, 10, 21, .45); }
+    .resume-ai-message code { background: rgba(123, 137, 255, .18); }
+    .resume-ai-message th, .resume-ai-message td { border-color: rgba(176, 184, 227, .2); }
+    .resume-ai-message th { background: rgba(123, 137, 255, .16); }
+    .resume-ai-message a { color: #aebaff; }
+    .resume-ai-input-shell { background: rgba(24, 26, 40, .72); border-color: rgba(158, 165, 214, .22); }
+    .resume-ai-scroll-bottom { color: #c5cbe0; border-color: rgba(158, 165, 214, .22); background: rgba(47, 51, 75, .86); }
+    .resume-ai-form textarea { color: #eff1fb; }
+}
+
+@media print { .resume-ai-trigger, .resume-ai-panel, .resume-ai-backdrop { display: none !important; } }

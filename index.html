@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta name="robots" content="noindex">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" type="text/css" href="style/top-bar.css">
+    <link rel="stylesheet" href="./assets/fonts" type="text/css" media="all">
+    <link rel="stylesheet" href="style/main.built.css" type="text/css">
+    <link rel="stylesheet" href="style/bio.built.css" type="text/css">
+    <link rel="stylesheet" href="knowledge-qa/widget.css" type="text/css">
+    <title>个人简历</title>
+</head>
+<body class="page-bio ac-nav-overlap resume-locked">
+<meta name="ac-gn-store-key" content="SX29D2YPJFKFAFC2P">
+<aside id="ac-gn-segmentbar" class="ac-gn-segmentbar" lang="zh-CN" dir="ltr"></aside>
+<div class="ac-gn-blur">
+</div>
+<div id="ac-gn-curtain" class="ac-gn-curtain"></div>
+<div id="ac-gn-placeholder" class="ac-nav-placeholder"></div>
+<div id="ac-gn-viewport-emitter" data-viewport-emitter-dispatch=""
+     data-viewport-emitter-state="{&quot;viewport&quot;:&quot;large&quot;,&quot;orientation&quot;:&quot;landscape&quot;,&quot;retina&quot;:true}"></div>
+<input type="checkbox" id="ac-ln-menustate" class="ac-ln-menustate">
+<div id="ac-ln-sticky-placeholder" class="css-sticky"></div>
+<nav id="ac-localnav" class="js no-touch css-sticky" lang="zh-CN" dir="ltr" data-sticky=""
+     data-analytics-region="local nav" role="navigation" aria-label="Local">
+    <div class="ac-ln-wrapper">
+        <div class="ac-ln-background"></div>
+        <div class="ac-ln-content">
+            <div class="ac-ln-title">
+                个人简历
+            </div>
+            <div class="ac-ln-menu">
+                <div class="ac-ln-actions">
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<label id="ac-ln-curtain" for="ac-ln-menustate"></label>
+<script type="text/javascript" src="js/top-bar.js"></script>
+<main id="main" class="main" role="main">
+    <header class="section section-hero resume-hero">
+        <div class="section-content resume-container resume-hero-grid">
+            <div class="avatar-container resume-avatar-slot">
+                <figure class="avatar resume-avatar" id="avatar" role="img" aria-label="个人头像"></figure>
+            </div>
+            <!-- 加密head-text里面的内容 -->
+            <div id="head-text" class="headlines resume-heading" aria-live="polite">
+            </div>
+        </div>
+    </header>
+    <!-- 加密main-text里面的内容 -->
+    <div id="main-text">
+    </div>
+    <div class="resume-actions">
+        <button id="pdf-btn" class="pdf-button" type="button" hidden>导出为 PDF</button>
+    </div>
+</main>
+<button id="resume-ai-trigger" class="resume-ai-trigger" type="button" hidden aria-haspopup="dialog" aria-controls="resume-ai-panel">
+    <span aria-hidden="true">✦</span> 问 AI
+</button>
+<div id="resume-ai-backdrop" class="resume-ai-backdrop" hidden></div>
+<section id="resume-ai-panel" class="resume-ai-panel" role="dialog" aria-modal="true" aria-labelledby="resume-ai-title" hidden>
+    <header class="resume-ai-header">
+        <div class="resume-ai-title-wrap">
+            <span class="resume-ai-title-mark" aria-hidden="true"></span>
+            <h2 id="resume-ai-title">问答助手</h2>
+            <span class="resume-ai-brand">Powered by <a href="http://j2agent-ai.jerryt92.top/" target="_blank" rel="noopener noreferrer" aria-label="访问 J2Agent 官网"><img class="resume-ai-logo resume-ai-logo-light" src="knowledge-qa/logo-b.svg" alt="J2Agent"><img class="resume-ai-logo resume-ai-logo-dark" src="knowledge-qa/logo-w.svg" alt=""></a></span>
+        </div>
+        <div class="resume-ai-header-actions">
+            <button id="resume-ai-new" class="resume-ai-icon-button" type="button" title="新建对话" aria-label="新建对话"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+            <button id="resume-ai-close" class="resume-ai-icon-button" type="button" title="关闭" aria-label="关闭"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        </div>
+    </header>
+    <div class="resume-ai-messages-wrap">
+        <div id="resume-ai-messages" class="resume-ai-messages" aria-live="polite"></div>
+        <button id="resume-ai-scroll-bottom" class="resume-ai-scroll-bottom" type="button" hidden aria-label="回到最新消息" title="回到最新消息"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+    </div>
+    <form id="resume-ai-form" class="resume-ai-form">
+        <p id="resume-ai-status" class="resume-ai-status" aria-live="polite"></p>
+        <div class="resume-ai-input-shell">
+            <textarea id="resume-ai-input" rows="2" maxlength="2000" placeholder="输入问题，Enter 发送，Shift + Enter 换行" aria-label="输入问题"></textarea>
+            <button id="resume-ai-send" type="submit" aria-label="发送"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6"/></svg></button>
+        </div>
+        <p class="resume-ai-disclaimer" aria-hidden="true">AI 内容仅供参考，请核实关键信息</p>
+    </form>
+</section>
+<!--  验证模块 -->
+<div id="verify-div" style="text-align: center">
+    <div id="verify-content">
+        <br/>
+        <h1>
+            <svg t="1664713123448" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 p-id="3870" width="50" height="50">
+                <path d="M385.150849 385.662338l-128.895105 0 0-150.377622q0-49.102897 19.436563-91.556444t53.706294-74.677323 80.815185-50.637363 101.786214-18.413586q49.102897 0 94.625375 18.413586t80.815185 50.637363 56.263736 74.677323 20.971029 91.556444l0 150.377622-123.78022 0 0-121.734266q0-64.447552-35.804196-99.74026t-97.182817-35.292707q-55.240759 0-88.999001 35.292707t-33.758242 99.74026l0 121.734266zM826.053946 447.040959q27.62038 0 47.568432 19.948052t19.948052 47.568432l0 317.122877q0 27.62038-9.718282 51.66034t-26.597403 41.942058-39.896104 28.131868-50.637363 10.22977l-516.603397 0q-27.62038 0-50.125874-10.22977t-38.361638-27.108891-24.551449-39.384615-8.695305-48.07992l0-324.283716q0-27.62038 19.436563-47.568432t47.056943-19.948052l61.378621 0 128.895105 0 255.744256 0 123.78022 0 61.378621 0z"
+                      p-id="3871"></path>
+            </svg>
+        </h1>
+        <h1>
+            如需查看内容请输入密码
+        </h1>
+        <br/>
+        <table style="margin: auto">
+            <tr>
+                <td>
+                    <input id="key" type="password" placeholder="请输入密码"
+                           style="border: solid 1px;border-radius: 5px;padding: 5px">
+                </td>
+                <td style="padding-left: 10px">
+                    <input type="button" onclick="verify()" value="解锁">
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <hr/>
+        <strong style="color: #8c8c8c;font-size: x-small">
+            Power by AES-256 .
+        </strong>
+    </div>
+    <div id="loading-content" style="display: none; padding-top: 60px; padding-bottom: 60px;">
+        <div class="loader"></div>
+        <br/>
+        <h3 style="color: #666; font-weight: normal; font-size: 16px;">正在加载并解密简历内容...</h3>
+    </div>
+</div>
+
+
+<script src="js/marked.umd.js"></script>
+<script src="js/resume-markdown.js"></script>
+<script src="js/crypto-js.min.js"></script>
+<script src="js/aes.js"></script>
+<script src="knowledge-qa/config.js"></script>
+<script src="knowledge-qa/resume-ai.js"></script>
+<script>
+    var key = '';
+    var qkey = getPramValue('qkey');
+
+    function showLoading() {
+        document.getElementById('verify-content').style.display = 'none';
+        document.getElementById('loading-content').style.display = 'block';
+    }
+
+    function hideLoading() {
+        document.getElementById('verify-content').style.display = 'block';
+        document.getElementById('loading-content').style.display = 'none';
+    }
+
+    function showResume() {
+        document.body.classList.remove('resume-locked');
+        document.getElementById('verify-div').setAttribute('hidden', 'hidden');
+        document.getElementById('pdf-btn').hidden = false;
+        // 等简历 DOM 与头像完成一次布局后再挂载助手，避免 qkey 异步解密慢时面板参与锁定页布局。
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+                window.ResumeAi && window.ResumeAi.reveal();
+            });
+        });
+    }
+
+    async function loadImage(path) {
+        try {
+            const response = await fetch(path);
+            if (!response.ok) {
+                throw new Error('无法加载图片文件');
+            }
+            return await response.blob(); // 返回Blob对象
+        } catch (error) {
+            console.error(error);
+            throw error; // 重新抛出错误以便调用者可以捕获
+        }
+    }
+
+    // 从文件加载 headText 内容
+    async function loadHeadText() {
+        try {
+            const response = await fetch('./assets/head-text.txt');
+            if (!response.ok) {
+                throw new Error('无法加载 headText 文件');
+            }
+            const text = await response.text();
+            return text;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    // 从文件加载 mainText 内容
+    async function loadMainText() {
+        try {
+            const response = await fetch('./assets/main-text.txt');
+            if (!response.ok) {
+                throw new Error('无法加载 mainText 文件');
+            }
+            const text = await response.text();
+            return text;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    window.onload = async function () {
+        if (sessionStorage.getItem('pwd')) {
+            document.getElementById('key').value = sessionStorage.getItem('pwd');
+            await verify();
+        } else if (qkey != null) {
+            showLoading();
+            try {
+                // 把qkey解密为key
+                key = aesDecrypt('' + CryptoJS.MD5("20221001"), qkey);
+                // 解锁头像
+                avatarDecryptToCSS(key, 'avatar');
+                // 解锁head-text
+                const headText = await loadHeadText();
+                renderResumeContent(aesDecrypt('' + CryptoJS.MD5(key), headText), document.getElementById('head-text'), 'head');
+                // 解锁main-text
+                const mainText = await loadMainText();
+                renderResumeContent(aesDecrypt('' + CryptoJS.MD5(key), mainText), document.getElementById('main-text'), 'main');
+                showResume();
+            } catch (e) {
+                hideLoading();
+                document.getElementById('pdf-btn').hidden = true;
+                alert('qkey参数错误！');
+            }
+        }
+    }
+
+    async function verify() {
+        key = document.getElementById('key').value;
+        showLoading();
+        try {
+            // 解锁头像
+            avatarDecryptToCSS(key, 'avatar');
+            // 解锁head-text
+            const headText = await loadHeadText();
+            renderResumeContent(aesDecrypt('' + CryptoJS.MD5(key), headText), document.getElementById('head-text'), 'head');
+            // 解锁main-text
+            const mainText = await loadMainText();
+            renderResumeContent(aesDecrypt('' + CryptoJS.MD5(key), mainText), document.getElementById('main-text'), 'main');
+            showResume();
+            sessionStorage.setItem('pwd', key);
+        } catch (e) {
+            hideLoading();
+            document.getElementById('pdf-btn').hidden = true;
+            alert('密码错误！');
+            sessionStorage.clear();
+            location.reload();
+        }
+    }
+
+    async function avatarDecryptToCSS(key, img_id) {
+        try {
+            // 加载加密的图片文件
+            const blob = await loadImage('./assets/img/avatar_672_672.webp.aes256.bin');
+            // 读取文件为ArrayBuffer
+            const arrayBuffer = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+                reader.readAsArrayBuffer(blob);
+            });
+            // 解密数据
+            const decData = aesFileDecrypt('' + CryptoJS.MD5(key), arrayBuffer);
+            // 创建Blob对象
+            const fileBlob = new Blob([decData], {type: "image/webp"}); // 注意根据实际情况调整MIME类型
+            // 构建URL并设置样式
+            var csstext = 'background-image: url(' + URL.createObjectURL(fileBlob) + ');';
+            document.getElementById(img_id).style.cssText += csstext;
+        } catch (error) {
+            console.error('图片解密失败:', error);
+        }
+    }
+
+    function getPramValue(pramName) {
+        var query = decodeURI(window.location.search.substring(1));
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == pramName) {
+                return pair[1].trim();
+            }
+        }
+        return null;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const passwordInput = document.getElementById('key');
+        document.getElementById('pdf-btn').addEventListener('click', function () {
+            window.print();
+        });
+        passwordInput.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                verify();
+            }
+        });
+    });
+
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') { // 使用 `event.key` 更直观
+            verify(); // 调用验证函数
+        }
+    }
+</script>
+</body>
+<style>
+    .loader {
+        border: 3px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 3px solid #007aff;
+        width: 30px;
+        height: 30px;
+        -webkit-animation: spin 1s linear infinite;
+        animation: spin 1s linear infinite;
+        margin: auto;
+    }
+
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+</html>
